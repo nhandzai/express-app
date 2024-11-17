@@ -20,7 +20,8 @@ module.exports = (sequelize, DataTypes) => {
     short_description: DataTypes.TEXT,
     detail: DataTypes.TEXT,
     material: DataTypes.STRING,
-    weight_kg: DataTypes.FLOAT
+    weight_kg: DataTypes.FLOAT,
+    stock_quantity: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'products',

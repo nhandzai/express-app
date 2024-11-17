@@ -37,6 +37,9 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
+      },
+      stock_quantity: {
+        type: Sequelize.INTEGER
       }
     });
   },
