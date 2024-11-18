@@ -4,9 +4,9 @@ const { User } = require('../models');
 const router = express.Router();
 
 router.post('/register', async (req, res) => {
-    const { name, email, password } = req.body;
+    const { fullName, email, password } = req.body;
 
-    if (!name || !email || !password) {
+    if (!fullName || !email || !password) {
         return res.status(400).json({ message: 'All fields are required.' });
     }
 
@@ -14,7 +14,7 @@ router.post('/register', async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, 10);
 
         const user = await User.create({
-            name,
+            fullName,
             email,
             password: hashedPassword,
         });
