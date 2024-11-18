@@ -2,37 +2,68 @@ var express = require('express');
 var router = express.Router();
 var path = require('path');
 var ejs = require('ejs');
+const db = require('../models');
+const renderProductHome = require('../views/product-home');
+const renderHome = require('../views/home');
+const renderProduct = require('../views/product');
+const renderCatalog = require('../views/catalog');
+const { getAllProducts } = require('../Support/getProduct');
+const { getProductById } = require('../Support/getProdFromId');
 
-/* GET home page. */
-router.get('/', function (req, res, next) {
-  ejs.renderFile(path.join(__dirname, '../views/home.ejs'), {}, function (err, str) {
-    if (err) return next(err);
+
+
+
+// GET home page  
+
+router.get('/', async function (req, res, next) {
+  try {
+
+    const products = await getAllProducts();
+    const productHomeStr = await renderProductHome(req, res, next, products);
+
+    const str = await renderHome(req, res, next, productHomeStr);
+
     res.render('index', {
       title: 'Home',
       body: str, // Rendered home.ejs content
     });
-  });
+  } catch (error) {
+    next(error);
+  }
 });
-
 /* GET catalog page. */
-router.get('/catalog', function (req, res, next) {
-  ejs.renderFile(path.join(__dirname, '../views/catalog.ejs'), {}, function (err, str) {
-    if (err) return next(err);
+router.get('/catalog', async function (req, res, next) {
+  try {
+
+    const products = await getAllProducts();
+    const productCatalog = await renderProductHome(req, res, next, products);
+
+    const str = await renderCatalog(req, res, next, productCatalog);
+
     res.render('index', {
       title: 'Catalog',
-      body: str, // Rendered catalog.ejs content
+      body: str, // Rendered home.ejs content
     });
-  });
+  } catch (error) {
+    next(error);
+  }
 });
 
-router.get('/home', function (req, res, next) {
-  ejs.renderFile(path.join(__dirname, '../views/home.ejs'), {}, function (err, str) {
-    if (err) return next(err);
+router.get('/home', async function (req, res, next) {
+  try {
+
+    const products = await getAllProducts();
+    const productHomeStr = await renderProductHome(req, res, next, products);
+
+    const str = await renderHome(req, res, next, productHomeStr);
+
     res.render('index', {
       title: 'Home',
       body: str, // Rendered home.ejs content
     });
-  });
+  } catch (error) {
+    next(error);
+  }
 });
 
 router.get('/about-us', function (req, res, next) {
@@ -64,4 +95,25 @@ router.get('/sign-up', function (req, res, next) {
     });
   });
 });
+router.get('/product', async function (req, res, next) {
+  try {
+    const productId = +req.query.id;
+
+    const product = await getProductById(productId);
+
+
+    const str = await renderProduct(req, res, next, product);
+
+    res.render('index', {
+      title: 'Product',
+      body: str,
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
+
+
 module.exports = router;
+
