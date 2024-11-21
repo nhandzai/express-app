@@ -1,4 +1,4 @@
-const userService = require('./users_Service');
+const userService = require('./users-service');
 const getSignUp = (req, res) => {
     res.render('sign-up', { title: 'Sign Up' });
   };

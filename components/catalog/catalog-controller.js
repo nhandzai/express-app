@@ -1,17 +1,14 @@
-const db = require('../../library/models');
+const { fetchAllProducts } = require('./catalog-model'); 
+const { renderCatalogPage } = require('./catalog-view'); 
 
-const getCatalog = async (req, res, next) => {
+async function getCatalog(req, res, next) {
   try {
-    const products = await db.products.findAll();
-    res.render('catalog', {
-      title: 'Catalog',
-      products: products
-    });
+    const products = await fetchAllProducts(); 
+    renderCatalogPage(res, products); 
   } catch (error) {
-    next(error);
+    next(error); 
   }
-};
+}
 
-module.exports = {
-  getCatalog,
-};
+module.exports = { getCatalog };
+

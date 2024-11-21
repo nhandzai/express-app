@@ -1,5 +1,5 @@
-const { fetchAllProducts } = require('./home_model'); 
-const { renderHomePage } = require('./home_view'); 
+const { fetchAllProducts } = require('./home-model'); 
+const { renderHomePage } = require('./home-view'); 
 
 async function getHome(req, res, next) {
   try {

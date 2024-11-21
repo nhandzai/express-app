@@ -1,5 +1,5 @@
 const { fetchProductById } = require('./products_model');
-const { renderProductPage } = require('./products_view');
+const { renderProductPage } = require('./products-view');
 
 async function getProduct(req, res, next) {
   try {
