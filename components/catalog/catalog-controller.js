@@ -1,4 +1,4 @@
-const db = require('../../models');
+const db = require('../../library/models');
 
 const getCatalog = async (req, res, next) => {
   try {

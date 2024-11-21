@@ -1,5 +1,5 @@
 const bcrypt = require('bcryptjs');
-const { User } = require('../../models');
+const { User } = require('../../library/models');
 
 const registerUser = async (fullName, email, password) => {
     if (!fullName || !email || !password) {
