@@ -1,17 +1,14 @@
-const db = require('../../models');
+const { fetchAllProducts } = require('./home_model'); 
+const { renderHomePage } = require('./home_view'); 
 
 async function getHome(req, res, next) {
   try {
-    const products = await db.products.findAll();
-    res.render('home', {
-      title: 'Home',
-      products: products
-    });
+    const products = await fetchAllProducts(); 
+    renderHomePage(res, products); 
   } catch (error) {
-    next(error);
+    next(error); 
   }
 }
 
-module.exports = {
-  getHome
-};
+module.exports = { getHome };
+

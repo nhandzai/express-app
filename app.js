@@ -26,7 +26,7 @@ app.use(express.static('public'));
 
 app.use(cors());
 app.use(require('express-ejs-layouts'));
-
+app.set('layout', 'index');
 
 
 app.use('/', indexRouter);
