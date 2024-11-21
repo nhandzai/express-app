@@ -4,17 +4,20 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const cors = require('cors');
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var registerRouter = require('./routes/register');
+var registerRouter = require('./routes/api.js');
 var connectDB = require('./config/connectDB.js');
 var app = express();
 connectDB();
 require('dotenv').config();
 // view engine setup
+
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+app.set('layout', 'index');
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -22,11 +25,13 @@ app.use(cookieParser());
 app.use(express.static('public'));
 
 app.use(cors());
+app.use(require('express-ejs-layouts'));
+
 
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/api', registerRouter); 
+app.use('/api', registerRouter);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
