@@ -1,5 +1,6 @@
+const { renderAboutUsPage} =require("./about-us-view")
 const getAboutUs = (req, res) => {
-    res.render('about-us', { title: 'About Us' });
+    renderAboutUsPage(req, res);
   };
   module.exports = {
     getAboutUs,

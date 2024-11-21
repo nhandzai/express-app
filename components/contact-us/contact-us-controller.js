@@ -1,5 +1,6 @@
+const { renderContactUsPage } = require('./contact-us-view'); 
 const getContactUs = (req, res) => {
-  res.render('contact-us', { title: 'Contact Us' });
+renderContactUsPage(req, res);
 };
 module.exports = {
   getContactUs,
